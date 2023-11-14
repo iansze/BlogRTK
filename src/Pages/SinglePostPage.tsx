@@ -4,12 +4,12 @@ import PostAuth from "../components/PostAuth";
 import TimeFormat from "../components/TimeFormat";
 import ReactionButton from "../components/ReactionButton";
 import { Link, useParams } from "react-router-dom";
-import "../styles/_post.scss";
+
+import { selectPostById } from "../store/feature/posts/postSlice";
 
 const SinglePost = () => {
-  const { id } = useParams<{ id: string }>();
-  const posts = useSelector((state: RootState) => state.posts.posts);
-  const post = posts.find((post) => post.id.toString() === id);
+  const { id } = useParams();
+  const post = useSelector((state: RootState) => selectPostById(state, id as string));
 
   if (!post) {
     return (

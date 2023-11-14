@@ -1,10 +1,13 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../store";
 import { Link } from "react-router-dom";
-import "../styles/_list.scss";
+import { selectAllUsers } from "../store/feature/user/userSlice";
+import { useGetUsersQuery } from "../store/feature/user/userApiSlice";
 
 const UserList = () => {
-  const users = useSelector((state: RootState) => state.users);
+  const users = useSelector(selectAllUsers);
+  const { isLoading, isError } = useGetUsersQuery(null);
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error fetching users.</div>;
 
   return (
     <section>

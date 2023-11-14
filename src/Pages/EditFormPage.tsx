@@ -1,23 +1,24 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { AppDispatch, RootState } from "../store";
-import { deletePost, updatePost } from "../store/feature/posts/postsThunks";
+import { RootState } from "../store";
 import { Post } from "../types/types";
-import "../styles/_form.scss";
+import { useUpdatePostMutation, useDeletePostMutation } from "../store/feature/posts/postsApiSlice";
+import { selectPostById } from "../store/feature/posts/postSlice";
+import { selectAllUsers } from "../store/feature/user/userSlice";
 
 const EditForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const posts = useSelector((state: RootState) => state.posts.posts);
-  const post = posts.find((post) => post.id.toString() === id);
-  const users = useSelector((state: RootState) => state.users);
+
+  const [updatePost] = useUpdatePostMutation();
+  const [deletePost] = useDeletePostMutation();
+  const post = useSelector((state: RootState) => selectPostById(state, id as string));
+  const users = useSelector(selectAllUsers);
 
   const [title, setTitle] = useState(post?.title);
   const [content, setContent] = useState(post?.body);
   const [userId, setUserId] = useState(post?.userId);
-
-  const dispatch = useDispatch<AppDispatch>();
 
   if (!post) {
     return (
@@ -32,7 +33,7 @@ const EditForm = () => {
     setContent(e.target.value);
   const onAuthorChanged = (e: React.ChangeEvent<HTMLSelectElement>) => setUserId(e.target.value);
 
-  const onSavePostClicked = () => {
+  const onSavePostClicked = async () => {
     try {
       const editedPost: Post = {
         id: post.id,
@@ -42,7 +43,7 @@ const EditForm = () => {
         date: post.date,
         reactions: post.reactions,
       };
-      dispatch(updatePost(editedPost)).unwrap();
+      await updatePost(editedPost).unwrap();
       setTitle("");
       setContent("");
       setUserId("");
@@ -60,8 +61,7 @@ const EditForm = () => {
 
   const onDeletePostClicked = () => {
     try {
-      dispatch(deletePost(post.id)).unwrap();
-
+      deletePost(post.id).unwrap();
       setTitle("");
       setContent("");
       setUserId("");

@@ -1,53 +1,49 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../store";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addNewPost } from "../store/feature/posts/postsThunks";
 import { Post } from "../types/types";
 import { nanoid } from "@reduxjs/toolkit";
-import "../styles/_form.scss";
+import { useAddNewPostMutation } from "../store/feature/posts/postsApiSlice";
+import { selectAllUsers } from "../store/feature/user/userSlice";
 
 const AddPostForm = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [userId, setUserId] = useState("");
-  const dispatch = useDispatch<AppDispatch>();
+  const [addNewPost, { isLoading }] = useAddNewPostMutation();
+  const users = useSelector(selectAllUsers);
   const navigate = useNavigate();
-  const users = useSelector((state: RootState) => state.users);
 
   const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
   const onContentChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     setContent(e.target.value);
   const onAuthorChanged = (e: React.ChangeEvent<HTMLSelectElement>) => setUserId(e.target.value);
 
-  const onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (title && content) {
-      //Already done in redux Prepare
-      //   const newPost: Post = {
-      //     id: nanoid(),
-      //     title,
-      //     content,
-      //   };
-      //   dispatch(postAdded(newPost));
-      const newPost: Post = {
-        id: nanoid(),
-        title,
-        body: content,
-        date: new Date().toISOString(),
-        userId,
-        reactions: {
-          thumbsUp: 0,
-          wow: 0,
-          heart: 0,
-          rocket: 0,
-          coffee: 0,
-        },
-      };
-      dispatch(addNewPost(newPost));
-      setTitle("");
-      setContent("");
-      navigate("/");
+    if (title && content && !isLoading) {
+      try {
+        const newPost: Post = {
+          id: nanoid(),
+          title,
+          body: content,
+          date: new Date().toISOString(),
+          userId,
+          reactions: {
+            thumbsUp: 0,
+            wow: 0,
+            heart: 0,
+            rocket: 0,
+            coffee: 0,
+          },
+        };
+        await addNewPost(newPost).unwrap();
+        setTitle("");
+        setContent("");
+        navigate("/");
+      } catch (err) {
+        console.error("Failed to add the post: ", err);
+      }
     }
   };
 
@@ -60,7 +56,7 @@ const AddPostForm = () => {
   return (
     <section className="formSection">
       <h2>Add a New Post</h2>
-      <form onSubmit={onSubmitForm}>
+      <form onSubmit={(e) => onSubmitForm(e)}>
         <label htmlFor="postTitle">Post Title:</label>
         <input
           type="text"

@@ -1,24 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { fetchUsers } from "./userThunks";
+import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import { User } from "../../../types/types";
+import { usersApiSlice } from "./userApiSlice";
+import { RootState } from "../..";
 
-const initialState: User[] = [];
+const usersAdapter = createEntityAdapter<User>();
+const initialState = usersAdapter.getInitialState();
 
 const userSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {
-    userAdded(state, action) {
-      state.push(action.payload);
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
-    builder.addCase(fetchUsers.fulfilled, (_state, action) => {
-      return action.payload;
+    builder.addMatcher(usersApiSlice.endpoints.getUsers.matchFulfilled, (state, action) => {
+      usersAdapter.setAll(state, action.payload);
     });
   },
 });
 
-export const { userAdded } = userSlice.actions;
-
 export const userReducer = userSlice.reducer;
+
+export const { selectAll: selectAllUsers, selectById: selectUserById } = usersAdapter.getSelectors(
+  (state: RootState) => state.users
+);

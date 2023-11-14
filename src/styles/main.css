@@ -1,0 +1,384 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  font-family: "Roboto", serif;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+.heading-2, .heading-1 {
+  font-weight: bold;
+  color: #5c6bc0;
+}
+
+.heading-1 {
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+.heading-2 {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+main {
+  width: 85%;
+  margin: 0 auto;
+}
+@media (min-width: 1200px) {
+  main {
+    width: 50%;
+  }
+}
+
+@media (max-width: 460px) {
+  .heading-1 {
+    font-size: 2rem;
+  }
+  .heading-2 {
+    font-size: 1.5rem;
+  }
+}
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  font-family: "Roboto", serif;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+.heading-2, .heading-1 {
+  font-weight: bold;
+  color: #5c6bc0;
+}
+
+.heading-1 {
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+.heading-2 {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+main {
+  width: 85%;
+  margin: 0 auto;
+}
+@media (min-width: 1200px) {
+  main {
+    width: 50%;
+  }
+}
+
+@media (max-width: 460px) {
+  .heading-1 {
+    font-size: 2rem;
+  }
+  .heading-2 {
+    font-size: 1.5rem;
+  }
+}
+.formSection {
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 2rem 1rem;
+  margin: 4rem 0;
+}
+.formSection h2 {
+  color: #5c6bc0;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.formSection form {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 1rem;
+  margin: auto;
+}
+.formSection form input[type=text],
+.formSection form select,
+.formSection form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
+.formSection form input[type=text]:focus,
+.formSection form select:focus,
+.formSection form textarea:focus {
+  border-color: #5c6bc0;
+  outline: none;
+}
+.formSection form textarea {
+  height: 200px;
+}
+.formSection form button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out;
+}
+.formSection form button.deleteButton {
+  background-color: #dc3545;
+  color: white;
+}
+.formSection form button.deleteButton:hover {
+  background-color: #d32535;
+}
+.formSection form button:not(.deleteButton) {
+  background-color: #28a745;
+  color: white;
+}
+.formSection form button:not(.deleteButton):hover {
+  background-color: #23923d;
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 0.5rem 0.5rem;
+  }
+  form {
+    padding: 0;
+  }
+}
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  font-family: "Roboto", serif;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+.heading-2, .heading-1 {
+  font-weight: bold;
+  color: #5c6bc0;
+}
+
+.heading-1 {
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+.heading-2 {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+main {
+  width: 85%;
+  margin: 0 auto;
+}
+@media (min-width: 1200px) {
+  main {
+    width: 50%;
+  }
+}
+
+@media (max-width: 460px) {
+  .heading-1 {
+    font-size: 2rem;
+  }
+  .heading-2 {
+    font-size: 1.5rem;
+  }
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgb(243, 229, 213);
+}
+@media (min-width: 1200px) {
+  .header {
+    margin: auto;
+  }
+}
+.header__ul {
+  list-style: none;
+}
+.header__li a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: 500;
+  margin: 0 1rem;
+  transition: color 0.3s ease-in-out;
+  font-size: 1.2rem;
+}
+.header__li :hover {
+  color: #00254d;
+}
+@media (max-width: 460px) {
+  .header__li a {
+    font-size: 1rem;
+    margin: 0 0.5rem;
+  }
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  font-family: "Roboto", serif;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+.heading-2, .heading-1 {
+  font-weight: bold;
+  color: #5c6bc0;
+}
+
+.heading-1 {
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+.heading-2 {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+main {
+  width: 85%;
+  margin: 0 auto;
+}
+@media (min-width: 1200px) {
+  main {
+    width: 50%;
+  }
+}
+
+@media (max-width: 460px) {
+  .heading-1 {
+    font-size: 2rem;
+  }
+  .heading-2 {
+    font-size: 1.5rem;
+  }
+}
+section {
+  margin-top: 2rem;
+}
+section h2 {
+  color: #5c6bc0;
+  margin-bottom: 1rem;
+}
+section ol {
+  list-style: none;
+  padding-left: 0;
+}
+section ol li {
+  background: #fff;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+section ol li:last-child {
+  margin-bottom: 0;
+}
+section ol li a {
+  text-decoration: none;
+  color: #337ab7;
+  transition: color 0.3s ease;
+}
+section ol li a:hover {
+  color: #285f8f;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  section {
+    width: 95%;
+    margin: 1rem;
+  }
+}
+article {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 1em;
+  margin: 3rem 0;
+  transition: box-shadow 0.3s ease;
+}
+article:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+article p span {
+  margin-right: 1rem;
+  font-weight: bold;
+}
+article a {
+  text-decoration: none;
+  color: black;
+}
+article a p {
+  margin: 1.5rem 0;
+  font-size: 1.2rem;
+}
+
+.singlePost_content {
+  margin: 2rem 0;
+  font-size: 1.2rem;
+}
+
+.singlePost_author {
+  margin: 1rem 0;
+}
+
+.reaction {
+  margin-top: 1rem;
+}
+.reaction__btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+  margin-right: 1rem;
+}
+
+.edit_link {
+  padding: 0.2rem 1rem;
+  border: 1px solid #5c6bc0;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #5c6bc0;
+  font-weight: bold;
+  margin: 2rem 0;
+}
+.edit_link:hover {
+  background-color: #ddd;
+}
+
+/*# sourceMappingURL=main.css.map */

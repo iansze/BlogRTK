@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { Link, useParams } from "react-router-dom";
-import "../styles/_list.scss";
+import { selectUserById } from "../store/feature/user/userSlice";
+import { selectAllPosts } from "../store/feature/posts/postSlice";
 
 const UserPage = () => {
   const { userId } = useParams<{ userId: string }>();
-  const users = useSelector((state: RootState) => state.users);
-  const user = users.find((user) => user.id.toString() === userId);
-  const posts = useSelector((state: RootState) => state.posts.posts);
+  const user = useSelector((state: RootState) => selectUserById(state, userId as string));
+  const posts = useSelector(selectAllPosts);
 
   return (
     <section>

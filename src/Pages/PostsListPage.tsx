@@ -1,36 +1,33 @@
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { fetchPosts } from "../store/feature/posts/postsThunks";
-import { AppDispatch, RootState } from "../store/index";
 import PostArticle from "../components/PostArticle";
-import "../styles/_post.scss";
+
+import { useGetPostsQuery } from "../store/feature/posts/postsApiSlice";
+import { Post } from "../types/types";
+import { selectAllPosts } from "../store/feature/posts/postSlice";
 
 const PostsList = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const posts = useSelector((state: RootState) => state.posts.posts);
-  const status = useSelector((state: RootState) => state.posts.status);
-  const error = useSelector((state: RootState) => state.posts.error);
-  const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date));
-  const limitedPosts = orderedPosts.slice(0, 20);
+  // Directly Fetching Data with an RTK Query Hook
+  const { isLoading, isError, error } = useGetPostsQuery(null);
+  // Get data from the store using a selector
+  const posts = useSelector(selectAllPosts);
+
   let content;
 
-  if (status === "loading") {
-    content = <p>"Loading..."</p>;
-  } else if (status === "idle") {
-    dispatch(fetchPosts());
-    content = "";
-  } else if (status === "failed") {
-    content = <p>{error}</p>;
+  if (isLoading) {
+    content = <p>Loading...</p>;
+  } else if (isError) {
+    let errorMessage = "An error occurred";
+    if ("status" in error && "data" in error) {
+      errorMessage = `Error ${error.status}`;
+    }
+    content = <p>{errorMessage}</p>;
+  } else if (posts) {
+    const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date));
+    const limitedPosts = orderedPosts.slice(0, 20);
+    content = limitedPosts.map((post: Post) => <PostArticle key={post.id} post={post} />);
   }
 
-  const renderPosts = limitedPosts.map((post) => <PostArticle key={post.id} post={post} />);
-
-  return (
-    <section>
-      {content}
-      {!content && renderPosts}
-    </section>
-  );
+  return <section>{content}</section>;
 };
 
 export default PostsList;

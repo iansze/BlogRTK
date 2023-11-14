@@ -1,6 +1,5 @@
-import { useDispatch } from "react-redux";
-import { reactionAdded } from "../store/feature/posts/postSlice";
 import { Post, PostReaction } from "../types/types";
+import { useAddReactionMutation } from "../store/feature/posts/postsApiSlice";
 
 const reactionEmoji: { [K in keyof PostReaction]: string } = {
   thumbsUp: "👍",
@@ -15,10 +14,15 @@ type ReactionButtonProps = {
 };
 
 const ReactionButton = ({ post }: ReactionButtonProps) => {
-  const dispatch = useDispatch();
+  const [addReaction] = useAddReactionMutation();
 
-  const handleReaction = (reactionName: keyof PostReaction) => {
-    dispatch(reactionAdded({ postId: post.id, reaction: reactionName }));
+  const handleReaction = async (postId: string, name: keyof PostReaction) => {
+    try {
+      const newReactions = { ...post.reactions, [name]: post.reactions[name] + 1 };
+      await addReaction({ postId, reactions: newReactions });
+    } catch (err) {
+      console.error("Failed to add reaction: ", err);
+    }
   };
 
   return (
@@ -27,7 +31,7 @@ const ReactionButton = ({ post }: ReactionButtonProps) => {
         <button
           className="reaction__btn"
           key={name}
-          onClick={() => handleReaction(name as keyof PostReaction)}
+          onClick={() => handleReaction(post.id, name as keyof PostReaction)}
         >
           {emoji} {post.reactions[name as keyof PostReaction]}
         </button>

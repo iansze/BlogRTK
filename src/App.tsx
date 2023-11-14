@@ -1,8 +1,6 @@
 import AddPostForm from "./Pages/AddPostFormPage";
 import PostsList from "./Pages/PostsListPage";
-import { useDispatch } from "react-redux";
-import { fetchUsers } from "./store/feature/user/userThunks";
-import { AppDispatch } from "./store";
+
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import RootLayout from "./components/RootLayout";
 import SinglePost from "./Pages/SinglePostPage";
@@ -12,9 +10,6 @@ import UserList from "./Pages/UserListPage";
 import "../src/styles/_base.scss";
 
 const App = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  dispatch(fetchUsers());
-
   return (
     <BrowserRouter>
       <Routes>

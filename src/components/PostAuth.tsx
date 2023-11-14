@@ -1,14 +1,19 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import { selectAllUsers } from "../store/feature/user/userSlice";
 import { Link } from "react-router-dom";
+import { useGetUsersQuery } from "../store/feature/user/userApiSlice";
 
 type PostAuthProps = {
   userId?: string;
 };
 
 const PostAuth = ({ userId }: PostAuthProps) => {
-  const users = useSelector((state: RootState) => state.users);
+  const { isLoading, isError } = useGetUsersQuery(null);
+  const users = useSelector(selectAllUsers);
   const author = users.find((user) => user.id.toString() === userId);
+
+  if (isLoading) return <span>Loading...</span>;
+  if (isError) return <span>Error fetching users.</span>;
 
   return (
     <span>
