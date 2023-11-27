@@ -13,8 +13,9 @@ server.use(express.static(path.join(__dirname, "dist")));
 server.use(middlewares);
 server.use("/api", jsonServerRouter);
 
+server.use(express.static(path.join(path.resolve(), "./dist/index.html")));
 server.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+  res.sendFile(path.join(path.resolve(), "./dist", "index.html"));
 });
 
 server.listen(PORT, () => {
