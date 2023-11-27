@@ -8,8 +8,6 @@ const middlewares = jsonServer.defaults();
 
 const PORT = process.env.PORT || 3000;
 
-server.use(express.static(path.join(__dirname, "dist")));
-
 server.use(middlewares);
 server.use("/api", jsonServerRouter);
 
