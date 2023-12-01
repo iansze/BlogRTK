@@ -6,7 +6,7 @@ const server = express();
 const jsonServerRouter = jsonServer.router("./db.json");
 const middlewares = jsonServer.defaults();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.REACT_APP_API_URL || 3000;
 
 server.use(middlewares);
 server.use("/api", jsonServerRouter);
