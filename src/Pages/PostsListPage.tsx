@@ -4,6 +4,7 @@ import PostArticle from "../components/PostArticle";
 import { useGetPostsQuery } from "../store/feature/posts/postsApiSlice";
 import { Post } from "../types/types";
 import { selectAllPosts } from "../store/feature/posts/postSlice";
+import Loading from "../components/Loading";
 
 const PostsList = () => {
   // Directly Fetching Data with an RTK Query Hook
@@ -14,7 +15,7 @@ const PostsList = () => {
   let content;
 
   if (isLoading) {
-    content = <p>Loading...</p>;
+    return <Loading messagae="Loading, please wait..." />;
   } else if (isError) {
     let errorMessage = "An error occurred";
     if ("status" in error && "data" in error) {
