@@ -1,11 +1,13 @@
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useTheme } from "@mui/material/styles";
 
 type LoadingProps = {
   messagae: string;
 };
 
 const Loading = ({ messagae }: LoadingProps) => {
+  const theme = useTheme();
   return (
     <Backdrop
       open={true}
@@ -13,7 +15,7 @@ const Loading = ({ messagae }: LoadingProps) => {
         display: "flex",
         flexDirection: "column",
         color: "#fff",
-        zIndex: (theme) => theme.zIndex.drawer + 1,
+        zIndex: theme.zIndex.drawer + 1,
       }}
     >
       <CircularProgress color="inherit" />
